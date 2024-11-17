@@ -1,0 +1,63 @@
+@prefix : </#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix Per: </Person/>.
+@prefix obo: <http://purl.obolibrary.org/obo/>.
+@prefix Ins: </Institution/>.
+@prefix Rese: </ResearchPaper/>.
+@prefix Topic: </Topic/>.
+
+:hasExpert
+    a owl:ObjectProperty;
+    rdfs:domain :Topic;
+    rdfs:range obo:IAO_0000238;
+    owl:inverseOf :isExpertIn;
+    owl:propertyChainAxiom
+    ( [ owl:inverseOf :researchTopic ] [ owl:inverseOf obo:IAO_0000142 ] ).
+:isExpertIn
+    a owl:ObjectProperty;
+    rdfs:domain obo:IAO_0000238;
+    rdfs:range :Topic;
+    owl:inverseOf :hasExpert.
+:isTopicOf a owl:ObjectProperty; rdfs:domain :Topic; rdfs:range obo:IAO_0000013 .
+
+:researchTopic
+    a owl:ObjectProperty;
+    rdfs:domain obo:IAO_0000013;
+    rdfs:range :Topic;
+    owl:inverseOf :isTopicOf.
+Per:1
+    a obo:IAO_0000238;
+    obo:IAO_0000302 "Ben"@en;
+    obo:IAO_0000303 "Schack"@en, Ins:Lehigh_University.
+Per:2
+    a obo:IAO_0000238;
+    obo:IAO_0000302 "John"@en;
+    obo:IAO_0000303 "Doe"@en, Ins:Stanford.
+Rese:1
+    a obo:IAO_0000013;
+    :researchTopic Topic:Machine_Learning;
+    obo:IAO_0000142 Per:1;
+    obo:IAO_0000235 "Basic Machine Learning Techniques"@en;
+    obo:IAO_0000581 "2022-03-21"^^xsd:date.
+Rese:2
+    a obo:IAO_0000013;
+    :researchTopic Topic:Artificial_Intelligence, Topic:Machine_Learning;
+    obo:IAO_0000136 Rese:1;
+    obo:IAO_0000142 Per:1, Per:2;
+    obo:IAO_0000235 "Advanced Machine Learning Techniques"@en;
+    obo:IAO_0000581 "2024-03-21"^^xsd:date.
+Topic:Artificial_Intelligence a :Topic.
+
+Topic:Machine_Learning a :Topic.
+
+obo:IAO_0000136
+    a owl:ObjectProperty, owl:TransitiveProperty;
+    rdfs:domain obo:IAO_0000013;
+    rdfs:range obo:IAO_0000013;
+    owl:inverseOf obo:IAO_0000219 .
+obo:IAO_0000142
+    a owl:ObjectProperty, owl:SymmetricProperty;
+    rdfs:domain obo:IAO_0000238;
+    rdfs:range obo:IAO_0000013 .
