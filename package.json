@@ -1,0 +1,19 @@
+{
+  "name": "academic-knowledge-graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hashgraph/sdk": "^2.53.0",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "rdflib": "^2.2.35",
+    "sparqljs": "^3.7.3"
+  }
+}
