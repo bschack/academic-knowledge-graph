@@ -4,7 +4,7 @@ This project is meant to demonstrate the use of web3 technology as a way to veri
 
 ## Running the project
 
-To run the project, you need to set the `ACCOUNT_ID` and `PRIVATE_KEY` environment variables to your Hedera account ID and private key. You can get a Hedera testnet account [here](https://docs.hedera.com/guides/network/testnet/how-to-get-testnet-hbar).
+To run the project, you need to set the `ACCOUNT_ID` and `PRIVATE_KEY` environment variables to your Hedera account ID and private key. You can get a Hedera testnet account [here](https://docs.hedera.com/hedera/getting-started/introduction).
 
 Once you have your Hedera account, you can run the project by running `yarn` to install the dependencies and then `yarn dev` to start the project.
 
