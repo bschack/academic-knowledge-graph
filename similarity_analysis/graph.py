@@ -5,25 +5,20 @@ from owlrl import DeductiveClosure, OWLRL_Semantics
 from similarity import similarity
 from sentiment import sentiment_difference
 
-# Define namespaces
 PCO = Namespace("http://example.org/paper_conflict_ontology#")
 TOPIC_URI = "http://example.org/topic/"
 PAPER_URI = "http://example.org/paper/"
 CONFLICT_URI = "http://example.org/conflict/"
 
-# Apply rules using SPARQL
 def apply_rules(graph):
-    # Define hasConflictWith as a symmetric property
     graph.add((PCO.hasConflictWith, RDF.type, OWL.ObjectProperty))
     graph.add((PCO.hasConflictWith, RDFS.domain, PCO.Paper))
     graph.add((PCO.hasConflictWith, RDFS.range, PCO.Paper))
     graph.add((PCO.hasConflictWith, RDF.type, OWL.SymmetricProperty))
     
-    # Save the ontology with the rules
     print("\nSaving updated ontology...")
     save_graph(graph, "paper_conflict_ontology.ttl")
     
-    # Print inferred relationships (these will be computed by the reasoner)
     print("\nInferred relationships (via reasoner):")
     for s, p, o in graph.triples((None, PCO.hasConflictWith, None)):
         print(f"{s} {p} {o}")
@@ -107,6 +102,7 @@ def find_conflicts_between_papers(graph, paper_name, topic, conclusion, callback
     else:
         print(f"Found {len(conflicts)} conflicts between {paper_name} and other papers in {topic}")
     return conflicts
+
 # Function to add a paper
 def add_paper(graph, name, topics, conclusion):
     paper_uri = URIRef(f"{PAPER_URI}{safe_name(name)}")
@@ -122,6 +118,7 @@ def add_paper(graph, name, topics, conclusion):
         graph.add((topic_uri, RDF.type, PCO.Topic))
         graph.add((topic_uri, PCO.has_name, Literal(topic, datatype=XSD.string)))
 
+# Function to iterate through all topics and find conflicts
 def generate_conflicts(graph, name, topics, conclusion, callback):
     for topic in topics:
         find_conflicts_between_papers(graph, name, topic, conclusion, callback)
